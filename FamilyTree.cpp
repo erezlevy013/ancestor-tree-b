@@ -22,8 +22,7 @@ int y=0;
 				this->sex = 3;
 				this->father=NULL;
 				this->mother=NULL;
-				cout<<"DONE:"<< name<< endl;
-
+				
 			}
 			
 			Tree& Tree::addFather( string name, string name2 )
@@ -146,7 +145,7 @@ int y=0;
 				
 				if(p!= NULL)
 				{
-					cout<<p->name<<"  "<<p->sex <<endl;
+					cout<<p->name<<endl;
 					print(p->father);
 					print(p->mother);
 					
@@ -234,6 +233,10 @@ int y=0;
 					int c=0;
 					int g = 1;
 					string tmp_name = "";
+
+					//g = 0;
+				
+
 					for(int i=0; i<text.size(); i++)
 						if(text[i]=='m')
 							g = 2;
@@ -250,18 +253,15 @@ int y=0;
 					cout<<"sex="<<g<<" level="<<c<<endl;
 					pr = NULL;
 					searchF(this, g, c);
+					
 					g=c=0;
-					if (pr == NULL)
-					{
-						cout<<"ddddddd";
-						throw std::invalid_argument("Not exist person.");
-						
-					}
-					else
-					{
-						return pr->name;
-					}
-				
+
+						if ( pr != NULL && relation(pr->name) == text ) {
+							return pr->name;
+						} else {
+							throw std::invalid_argument("Not exist person.>>>>>>");
+						}
+					
 					pr=NULL;
 					
 					
@@ -269,15 +269,16 @@ int y=0;
 				catch(const std::exception& e)
 				{
 					std::cerr << e.what() << '\n';
-
 					throw;
-					return "";
+					return "unrelated";
+					
 				}
 
 			}
 
 			void Tree::display()
 			{
+				print(this);
 			}
 
 			void Tree::remove( string text )
@@ -289,4 +290,3 @@ int y=0;
 				
 
 			}
-
